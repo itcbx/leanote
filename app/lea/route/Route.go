@@ -51,10 +51,10 @@ func RouterFilter(c *revel.Controller, fc []revel.Filter) {
 		// leanote.com/api/user/get => ApiUser::Get
 		//*       /api/login               ApiAuth.Login,  这里的设置, 其实已经转成了ApiAuth了
 		if strings.HasPrefix(path, "/api") && !strings.HasPrefix(route.ControllerName, "Api") {
-			route.ControllerName = "Api" + route.ControllerName
+			route.ControllerName = "Api" + strings.ToUpper(strings.Split(path, "/")[2])  //route.ControllerName
 		} else if strings.HasPrefix(path, "/member") && !strings.HasPrefix(route.ControllerName, "Member") {
 			// member设置
-			route.ControllerName = "Member" + route.ControllerName
+			route.ControllerName = "Member" + strings.ToUpper(strings.Split(path, "/")[2])  //route.ControllerName
 		}
 		// end
 	}
