@@ -5,7 +5,7 @@ import (
 	"github.com/revel/revel"
 	//	. "github.com/leanote/leanote/app/lea"
 	"net/url"
-	"strings"
+	// "strings"
 
     "fmt"
 )
@@ -16,7 +16,7 @@ var staticPrefix = []string{"/public", "/favicon.ico", "/css", "/js", "/images",
 
 func RouterFilter(c *revel.Controller, fc []revel.Filter) {
 	// 补全controller部分
-	path := c.Request.Request.URL.Path
+	// path := c.Request.Request.URL.Path
 
 
 	// Figure out the Controller/Action
