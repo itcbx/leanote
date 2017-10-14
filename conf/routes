@@ -124,12 +124,23 @@ GET     /tinymce/*filepath                       Static.Serve("public/tinymce")
 #GET     /plugins/*filepath                       Static.Serve("public/tinymce/plugins")
 GET     /upload/*filepath                       Static.Serve("public/upload")
 
+# api
+*   /api/auth/:action       ApiAuth.:action
+*   /api/file/:action       ApiFile.:action
+*   /api/notebook/:action   ApiNoteBook.:action
+*   /api/note/:action       ApiNote.:action
+*   /api/tag/:action        ApiTag.:action
+*   /api/user/:action       ApiUser.:action
+
 # member
 # the prefix of member's controllername is "Member"
 *       /member               	MemberIndex.Index
 *       /member/index           MemberIndex.Index
+*       /member/group/:action     MemberGroup.:action
+*       /member/blog/:action    MemberBlog.:action
+*       /member/group/:action     MemberGroup.:action
+*       /member/index/:action     MemberIndex.:action
+*       /member/user/:action     MemberUser.:action
 
 # common
 *       /:controller/:action                    :controller.:action
-*       /api/:controller/:action                :controller.:action
-*       /member/:controller/:action             :controller.:action

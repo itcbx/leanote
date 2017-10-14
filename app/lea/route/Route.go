@@ -6,6 +6,8 @@ import (
 	//	. "github.com/leanote/leanote/app/lea"
 	"net/url"
 	"strings"
+
+    "fmt"
 )
 
 // overwite revel RouterFilter
@@ -16,13 +18,20 @@ func RouterFilter(c *revel.Controller, fc []revel.Filter) {
 	// 补全controller部分
 	path := c.Request.Request.URL.Path
 
+
 	// Figure out the Controller/Action
 	var route *revel.RouteMatch = revel.MainRouter.Route(c.Request.Request)
 	if route == nil {
 		c.Result = c.NotFound("No matching route found: " + c.Request.RequestURI)
 		return
 	}
-
+    fmt.Println(c.Request.Request)
+    fmt.Println(route.Action)
+    fmt.Println(route.ControllerName)
+    fmt.Println(route.MethodName)
+    fmt.Println(route.FixedParams)
+    fmt.Println(route.Params)
+    fmt.Println(route.TypeOfController)
 	// The route may want to explicitly return a 404.
 	if route.Action == "404" {
 		c.Result = c.NotFound("(intentionally)")
@@ -46,17 +55,6 @@ func RouterFilter(c *revel.Controller, fc []revel.Filter) {
 
 		// 检查mongodb 是否lost
 		db.CheckMongoSessionLost()
-
-		// api设置
-		// leanote.com/api/user/get => ApiUser::Get
-		//*       /api/login               ApiAuth.Login,  这里的设置, 其实已经转成了ApiAuth了
-		if strings.HasPrefix(path, "/api") && !strings.HasPrefix(route.ControllerName, "Api") {
-			route.ControllerName = "Api" + strings.ToUpper(strings.Split(path, "/")[2])  //route.ControllerName
-		} else if strings.HasPrefix(path, "/member") && !strings.HasPrefix(route.ControllerName, "Member") {
-			// member设置
-			route.ControllerName = "Member" + strings.ToUpper(strings.Split(path, "/")[2])  //route.ControllerName
-		}
-		// end
 	}
 
 	// Set the action.
